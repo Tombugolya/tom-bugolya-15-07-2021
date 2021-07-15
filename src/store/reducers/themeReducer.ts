@@ -13,8 +13,14 @@ interface ThemeAction extends AnyAction {
 }
 
 const initialState: ThemeState = {
-  dark: false,
+  dark: isBrowserDarkMode(),
 };
+
+function isBrowserDarkMode(): boolean {
+  if (window.matchMedia)
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return false;
+}
 
 const theme: Reducer<ThemeState, ThemeAction> = (
   state: ThemeState = initialState,
