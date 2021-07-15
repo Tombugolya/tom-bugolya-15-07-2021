@@ -1,18 +1,21 @@
-import React, { FC } from 'react';
 import ReactDOM from 'react-dom';
 import StoreProvider from './store/StoreProvider';
-import WeatherApp from './components/WeatherApp';
 import ThemeProvider from './style/ThemeProvider';
+import Routes from './pages/Routes';
+import { FC, StrictMode } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App: FC = () => {
   return (
-    <React.StrictMode>
+    <StrictMode>
       <StoreProvider>
         <ThemeProvider>
-          <WeatherApp />
+          <Router>
+            <Routes />
+          </Router>
         </ThemeProvider>
       </StoreProvider>
-    </React.StrictMode>
+    </StrictMode>
   );
 };
 
