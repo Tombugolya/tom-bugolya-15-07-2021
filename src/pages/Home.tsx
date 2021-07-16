@@ -1,23 +1,30 @@
 import Search from '../components/Search';
 import MainDisplay from '../components/MainDisplay';
+import AccuWeatherAPI from '../api/AccuWeatherAPI';
 import useAsyncEffect from 'use-async-effect';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Box } from '@material-ui/core';
 import {
-  getCurrentPosition,
+  getCurrentPositionKey,
   WeatherActionCode,
 } from '../store/reducers/weatherReducer';
 import { useAppDispatch } from '../hooks/hooks';
 
 const Home: FC = () => {
-  const dispatch = useAppDispatch();
+  //const dispatch = useAppDispatch();
+  const [mount, setMount] = useState<boolean>(false);
   useAsyncEffect(async () => {
-    const position = await getCurrentPosition();
-    console.log('get current position', position);
-    dispatch({
-      type: WeatherActionCode.CHANGE_CURRENT,
-      payload: { key: position },
-    });
+    // const key = await getCurrentPositionKey();
+    // const [conditions, info, fiveDayForecast] = await Promise.all([
+    //   AccuWeatherAPI.getCurrentConditions(key),
+    //   AccuWeatherAPI.getLocationInfoByKey(key),
+    //   AccuWeatherAPI.getFiveDayForecast(key),
+    // ]);
+    // dispatch({
+    //   type: WeatherActionCode.CHANGE_CURRENT,
+    //   payload: { current: { info, conditions, fiveDayForecast } },
+    // });
+    setMount(true);
   }, []);
 
   return (
@@ -29,7 +36,7 @@ const Home: FC = () => {
       flexDirection="column"
     >
       <Search />
-      <MainDisplay />
+      {mount && <MainDisplay />}
     </Box>
   );
 };

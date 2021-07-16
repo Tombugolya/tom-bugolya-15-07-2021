@@ -1,12 +1,21 @@
-import AccuWeatherAPI, { AutocompleteResponse } from '../../api/AccuWeatherAPI';
-import to from 'await-to-js';
+import AccuWeatherAPI, {
+  LocationInfoResponse,
+  CurrentConditionsResponse,
+  FiveDayForecastResponse,
+} from '../../api/AccuWeatherAPI';
 import { AnyAction, Reducer } from 'redux';
+import to from 'await-to-js';
+import TestObject from '../../apiTest';
 
 interface WeatherState {
   celsius: boolean;
   favorites: string[];
-  current: string;
-  searchResults: AutocompleteResponse[];
+  current: {
+    conditions: CurrentConditionsResponse;
+    info: LocationInfoResponse;
+    fiveDayForecast: FiveDayForecastResponse;
+  };
+  searchResults: LocationInfoResponse[];
 }
 
 export enum WeatherActionCode {
@@ -15,24 +24,32 @@ export enum WeatherActionCode {
   REMOVE_FAVORITE = 'REMOVE_WEATHER_KEY_FROM_FAVORITES',
   CHANGE_CURRENT = 'CHANGE_CURRENT_WEATHER_KEY',
   ADD_RESULTS = 'ADD_AUTOCOMPLETE_WEATHER_RESULTS',
+  RETURN = 'RETURN_TO_MAIN_DISPLAY',
 }
 
 interface WeatherAction extends AnyAction {
   type: WeatherActionCode;
   payload?: {
     key?: string;
-    results?: AutocompleteResponse[];
+    results?: LocationInfoResponse[];
+    current?: {
+      conditions: CurrentConditionsResponse;
+      info: LocationInfoResponse;
+      fiveDayForecast: FiveDayForecastResponse;
+    };
   };
 }
 
 const initialState: WeatherState = {
   celsius: true,
   favorites: [],
-  current: '3383898',
+  current: TestObject,
   searchResults: [],
 };
 
-export async function getCurrentPosition(): Promise<string> {
+const defaultKey = '3383898';
+
+export async function getCurrentPositionKey(): Promise<string> {
   if (navigator && navigator.geolocation) {
     const position = await new Promise(
       (resolve: (g: GeolocationPosition) => void, reject) => {
@@ -43,12 +60,11 @@ export async function getCurrentPosition(): Promise<string> {
       longitude: position.coords.longitude,
       latitude: position.coords.latitude,
     };
-    const [error, data] = await to(AccuWeatherAPI.geopositionSearch(latLon));
-    console.log(data);
-    if (error) return initialState.current;
+    const [error, data] = await to(AccuWeatherAPI.getGeopositionSearch(latLon));
+    if (error) return defaultKey;
     return data!.Key;
   }
-  return initialState.current;
+  return defaultKey;
 }
 
 const weather: Reducer<WeatherState, WeatherAction> = (
@@ -61,24 +77,27 @@ const weather: Reducer<WeatherState, WeatherAction> = (
     case WeatherActionCode.ADD_FAVORITE:
       return {
         ...state,
-        favorites: [...state.favorites, action.payload!.key!],
+        favorites: [...state.favorites, action.payload.key],
       };
     case WeatherActionCode.REMOVE_FAVORITE:
       return {
         ...state,
-        favorites: state.favorites.filter(
-          (key) => key !== action.payload!.key!
-        ),
+        favorites: state.favorites.filter((key) => key !== action.payload.key),
       };
     case WeatherActionCode.CHANGE_CURRENT:
       return {
         ...state,
-        current: action.payload!.key!,
+        current: action.payload.current,
       };
     case WeatherActionCode.ADD_RESULTS:
       return {
         ...state,
-        searchResults: action.payload?.results!,
+        searchResults: action.payload.results,
+      };
+    case WeatherActionCode.RETURN:
+      return {
+        ...state,
+        searchResults: [],
       };
     default:
       return state;

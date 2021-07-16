@@ -1,9 +1,5 @@
 import to from 'await-to-js';
 
-interface FixedLengthArray<L extends number, T> extends ArrayLike<T> {
-  length: L;
-}
-
 interface LatLon {
   latitude: number;
   longitude: number;
@@ -14,16 +10,17 @@ export enum Prefix {
   CURRENT_CONDITIONS = 'currentconditions/v1',
   FIVE_DAY_FORECAST = 'forecasts/v1/daily/5day',
   GEOPOSITION = 'locations/v1/cities/geoposition/search',
+  GET_INFO_BY_KEY = 'locations/v1/',
 }
 
-export interface AutocompleteResponse {
+export interface LocationInfoResponse {
   Key: string;
   LocalizedName: string;
   Country: { ID: string; LocalizedName: string };
   AdministrativeArea: { ID: string; LocalizedName: string };
 }
 
-interface CurrentConditionsResponse {
+export interface CurrentConditionsResponse {
   WeatherText: string;
   WeatherIcon: number;
   Temperature: {
@@ -47,17 +44,17 @@ interface SingleForecast {
       Value: number;
       Unit: 'F' | 'C';
     };
-    Day: {
-      Icon: number;
-    };
-    Night: {
-      Icon: number;
-    };
+  };
+  Day: {
+    Icon: number;
+  };
+  Night: {
+    Icon: number;
   };
 }
 
-interface FiveDayForecastResponse {
-  DailyForecasts: FixedLengthArray<5, SingleForecast>;
+export interface FiveDayForecastResponse {
+  DailyForecasts: SingleForecast[];
 }
 
 interface GeopositionResponse {
@@ -67,12 +64,15 @@ interface GeopositionResponse {
 class AccuWeatherApi {
   #url: string = 'https://dataservice.accuweather.com';
   #apiKey: string = `${process.env.REACT_APP_WEATHER_API_KEY}`;
+  #assetsUrl: string =
+    'https://herolo-assets.s3.us-east-2.amazonaws.com/images';
   #headers = {
     method: 'GET',
   };
-  public async autocompleteSearch(
+
+  public async getAutocompleteSearch(
     query: string
-  ): Promise<AutocompleteResponse[]> {
+  ): Promise<LocationInfoResponse[]> {
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
       q: query,
@@ -83,10 +83,10 @@ class AccuWeatherApi {
     );
     const [error, data] = await to(response);
     if (error) console.log(error);
-    return (await data?.json()) as Promise<AutocompleteResponse[]>;
+    return (await data?.json()) as Promise<LocationInfoResponse[]>;
   }
 
-  public async currentConditions(
+  public async getCurrentConditions(
     key: string
   ): Promise<CurrentConditionsResponse> {
     const queryParams = new URLSearchParams({
@@ -101,7 +101,9 @@ class AccuWeatherApi {
     return (await data?.json())[0] as Promise<CurrentConditionsResponse>;
   }
 
-  public async fiveDayForecast(key: string): Promise<FiveDayForecastResponse> {
+  public async getFiveDayForecast(
+    key: string
+  ): Promise<FiveDayForecastResponse> {
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
     }).toString();
@@ -114,7 +116,7 @@ class AccuWeatherApi {
     return (await data?.json()) as Promise<FiveDayForecastResponse>;
   }
 
-  public async geopositionSearch({
+  public async getGeopositionSearch({
     latitude,
     longitude,
   }: LatLon): Promise<GeopositionResponse> {
@@ -129,6 +131,22 @@ class AccuWeatherApi {
     const [error, data] = await to(response);
     if (error) console.log(error);
     return (await data?.json()) as Promise<GeopositionResponse>;
+  }
+
+  public async getLocationInfoByKey(key: string) {
+    const queryParams = new URLSearchParams({
+      apikey: this.#apiKey,
+    }).toString();
+    const response = fetch(
+      `${this.#url}/${Prefix.GET_INFO_BY_KEY}/${key}?${queryParams}`
+    );
+    const [error, data] = await to(response);
+    if (error) console.log(error);
+    return (await data?.json()) as Promise<LocationInfoResponse>;
+  }
+
+  public getImageUrl(id: number) {
+    return `${this.#assetsUrl}/${id}-s.png`;
   }
 }
 

@@ -9,12 +9,9 @@ const Search: FC = () => {
   const dispatch = useAppDispatch();
   const onSearch = () => {
     if (textFieldRef.current.value === '')
-      dispatch({
-        type: WeatherActionCode.ADD_RESULTS,
-        payload: { results: [] },
-      });
+      dispatch({ type: WeatherActionCode.RETURN });
     else
-      AccuWeatherAPI.autocompleteSearch(textFieldRef.current.value).then(
+      AccuWeatherAPI.getAutocompleteSearch(textFieldRef.current.value).then(
         (values) => {
           dispatch({
             type: WeatherActionCode.ADD_RESULTS,
