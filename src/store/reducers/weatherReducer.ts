@@ -28,11 +28,11 @@ interface WeatherAction extends AnyAction {
 const initialState: WeatherState = {
   celsius: true,
   favorites: [],
-  current: '215849',
+  current: '3383898',
   searchResults: [],
 };
 
-async function getCurrentPosition(): Promise<string> {
+export async function getCurrentPosition(): Promise<string> {
   if (navigator && navigator.geolocation) {
     const position = await new Promise(
       (resolve: (g: GeolocationPosition) => void, reject) => {
@@ -44,6 +44,7 @@ async function getCurrentPosition(): Promise<string> {
       latitude: position.coords.latitude,
     };
     const [error, data] = await to(AccuWeatherAPI.geopositionSearch(latLon));
+    console.log(data);
     if (error) return initialState.current;
     return data!.Key;
   }

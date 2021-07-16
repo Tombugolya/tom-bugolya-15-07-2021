@@ -8,24 +8,25 @@ const Search: FC = () => {
   const textFieldRef = useRef<HTMLInputElement>();
   const dispatch = useAppDispatch();
   const onSearch = () => {
-    AccuWeatherAPI.autocompleteSearch(textFieldRef.current.value).then(
-      (values) => {
-        dispatch({
-          type: WeatherActionCode.ADD_RESULTS,
-          payload: { results: values },
-        });
-      }
-    );
+    if (textFieldRef.current.value === '')
+      dispatch({
+        type: WeatherActionCode.ADD_RESULTS,
+        payload: { results: [] },
+      });
+    else
+      AccuWeatherAPI.autocompleteSearch(textFieldRef.current.value).then(
+        (values) => {
+          dispatch({
+            type: WeatherActionCode.ADD_RESULTS,
+            payload: { results: values },
+          });
+        }
+      );
   };
 
   return (
     <>
-      <Box
-        display="flex"
-        margin="0 auto"
-        width="60vh"
-        justifyContent="space-around"
-      >
+      <Box display="flex" width="60vh" justifyContent="space-around">
         <TextField
           fullWidth
           type="search"

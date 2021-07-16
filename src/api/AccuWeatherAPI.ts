@@ -88,7 +88,7 @@ class AccuWeatherApi {
 
   public async currentConditions(
     key: string
-  ): Promise<CurrentConditionsResponse[]> {
+  ): Promise<CurrentConditionsResponse> {
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
     }).toString();
@@ -98,7 +98,7 @@ class AccuWeatherApi {
     );
     const [error, data] = await to(response);
     if (error) console.log(error);
-    return (await data?.json()) as Promise<CurrentConditionsResponse[]>;
+    return (await data?.json())[0] as Promise<CurrentConditionsResponse>;
   }
 
   public async fiveDayForecast(key: string): Promise<FiveDayForecastResponse> {
