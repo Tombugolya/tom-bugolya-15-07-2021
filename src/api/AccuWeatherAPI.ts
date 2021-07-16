@@ -16,7 +16,7 @@ export enum Prefix {
   GEOPOSITION = 'locations/v1/cities/geoposition/search',
 }
 
-interface AutocompleteResponse {
+export interface AutocompleteResponse {
   Key: string;
   LocalizedName: string;
   Country: { ID: string; LocalizedName: string };
@@ -58,6 +58,10 @@ interface SingleForecast {
 
 interface FiveDayForecastResponse {
   DailyForecasts: FixedLengthArray<5, SingleForecast>;
+}
+
+interface GeopositionResponse {
+  Key: string;
 }
 
 class AccuWeatherApi {
@@ -110,7 +114,10 @@ class AccuWeatherApi {
     return (await data?.json()) as Promise<FiveDayForecastResponse>;
   }
 
-  public async geopositionSearch({ latitude, longitude }: LatLon) {
+  public async geopositionSearch({
+    latitude,
+    longitude,
+  }: LatLon): Promise<GeopositionResponse> {
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
       q: `${latitude},${longitude}`,
@@ -121,7 +128,7 @@ class AccuWeatherApi {
     );
     const [error, data] = await to(response);
     if (error) console.log(error);
-    return (await data?.json()) as Promise<FiveDayForecastResponse>;
+    return (await data?.json()) as Promise<GeopositionResponse>;
   }
 }
 
