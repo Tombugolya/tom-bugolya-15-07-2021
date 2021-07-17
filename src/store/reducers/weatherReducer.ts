@@ -47,22 +47,28 @@ const initialState: WeatherState = {
   searchResults: [],
 };
 
-const defaultKey = '3383898';
+const defaultKey = '215854';
 
 export async function getCurrentPositionKey(): Promise<string> {
   if (navigator && navigator.geolocation) {
-    const position = await new Promise(
-      (resolve: (g: GeolocationPosition) => void, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject);
-      }
-    );
-    const latLon = {
-      longitude: position.coords.longitude,
-      latitude: position.coords.latitude,
-    };
-    const [error, data] = await to(AccuWeatherAPI.getGeopositionSearch(latLon));
-    if (error) return defaultKey;
-    return data!.Key;
+    try {
+      const position = await new Promise(
+        (resolve: (g: GeolocationPosition) => void, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        }
+      );
+      const latLon = {
+        longitude: position.coords.longitude,
+        latitude: position.coords.latitude,
+      };
+      const [error, data] = await to(
+        AccuWeatherAPI.getGeopositionSearch(latLon)
+      );
+      if (error) return defaultKey;
+      return data!.Key;
+    } catch (e) {
+      return defaultKey;
+    }
   }
   return defaultKey;
 }

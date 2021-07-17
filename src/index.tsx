@@ -2,8 +2,8 @@ import ReactDOM from 'react-dom';
 import StoreProvider from './store/StoreProvider';
 import ThemeProvider from './style/ThemeProvider';
 import Main from './pages/Main';
+import Router from './routes/Router';
 import { FC } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 const App: FC = () => {
   return (

@@ -15,7 +15,6 @@ const store = createStore(
 store.subscribe(
   _throttle(() => {
     saveState(store.getState());
-    localStorage.setItem('reduxState', JSON.stringify(store.getState()));
   }, 1000)
 );
 
