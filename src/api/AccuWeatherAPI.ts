@@ -61,6 +61,12 @@ interface GeopositionResponse {
   Key: string;
 }
 
+type CombinedData = [
+  CurrentConditionsResponse,
+  LocationInfoResponse,
+  FiveDayForecastResponse
+];
+
 class AccuWeatherApi {
   #url: string = 'https://dataservice.accuweather.com';
   #apiKey: string = `${process.env.REACT_APP_WEATHER_API_KEY}`;
@@ -147,6 +153,17 @@ class AccuWeatherApi {
 
   public getImageUrl(id: number) {
     return `${this.#assetsUrl}/${id}-s.png`;
+  }
+
+  public getCombinedDataCallback(
+    key: string,
+    callback: (combinedData: CombinedData) => void
+  ) {
+    Promise.all([
+      this.getCurrentConditions(key),
+      this.getLocationInfoByKey(key),
+      this.getFiveDayForecast(key),
+    ]).then(callback);
   }
 }
 
