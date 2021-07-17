@@ -13,17 +13,17 @@ const Home: FC = () => {
   const dispatch = useAppDispatch();
   const [mount, setMount] = useState<boolean>(false);
   useAsyncEffect(async () => {
-    //const key = await getCurrentPositionKey();
-    //AccuWeatherAPI.getCombinedDataCallback(
-    //  key,
-    //  ([conditions, info, fiveDayForecast]) => {
-    //    dispatch({
-    //      type: WeatherActionCode.CHANGE_CURRENT,
-    //      payload: { current: { info, conditions, fiveDayForecast } },
-    //    });
-    //    setMount(true);
-    //  }
-    //);
+    const key = await getCurrentPositionKey();
+    AccuWeatherAPI.getCombinedDataCallback(
+      key,
+      ([conditions, info, fiveDayForecast]) => {
+        dispatch({
+          type: WeatherActionCode.CHANGE_CURRENT,
+          payload: { current: { info, conditions, fiveDayForecast } },
+        });
+        setMount(true);
+      }
+    );
     setMount(true);
   }, []);
 

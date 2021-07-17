@@ -35,7 +35,6 @@ const FavoritesGrid: FC<FavoritesGridProps> = ({ combinedDataArray }) => {
       direction="row"
       justifyContent="center"
       container
-      spacing={5}
     >
       {combinedDataArray.map((combinedData, index) => {
         const [conditions, info] = combinedData;

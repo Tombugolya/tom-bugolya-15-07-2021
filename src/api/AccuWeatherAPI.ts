@@ -95,7 +95,6 @@ class AccuWeatherApi {
   public async getCurrentConditions(
     key: string
   ): Promise<CurrentConditionsResponse> {
-    console.log('executing get current conditions');
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
     }).toString();
@@ -111,7 +110,6 @@ class AccuWeatherApi {
   public async getFiveDayForecast(
     key: string
   ): Promise<FiveDayForecastResponse> {
-    console.log('executing get five day forecast');
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
     }).toString();
@@ -142,7 +140,6 @@ class AccuWeatherApi {
   }
 
   public async getLocationInfoByKey(key: string) {
-    console.log('executing get location info');
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
     }).toString();
