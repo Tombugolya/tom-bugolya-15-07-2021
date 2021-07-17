@@ -1,9 +1,9 @@
 import Switches from './ThemeSwitch';
+import routes from '../routes/routes';
 import { Link as RouterLink } from 'react-router-dom';
 import { FC, memo } from 'react';
 import { Box, Hidden, Link } from '@material-ui/core';
 
-//TODO: make LINKS general file to combine in Routes and here
 const Links: FC = () => {
   return (
     <Box
@@ -13,22 +13,17 @@ const Links: FC = () => {
       justifyContent="flex-end"
       color="secondary.main"
     >
-      <Link
-        style={{ margin: '1em', minWidth: '4em' }}
-        color="textPrimary"
-        component={RouterLink}
-        to="/"
-      >
-        Home
-      </Link>
-      <Link
-        style={{ margin: '1em', minWidth: '4em' }}
-        color="textPrimary"
-        component={RouterLink}
-        to="/favorites"
-      >
-        Favorites
-      </Link>
+      {Object.values(routes).map((route, index) => (
+        <Link
+          key={index}
+          style={{ margin: '1em', minWidth: '4em' }}
+          color="textPrimary"
+          component={RouterLink}
+          to={route.to}
+        >
+          {route.name}
+        </Link>
+      ))}
       <Hidden smDown>
         <Switches />
       </Hidden>

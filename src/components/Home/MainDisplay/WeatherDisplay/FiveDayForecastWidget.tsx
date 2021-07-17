@@ -1,4 +1,6 @@
-import AccuWeatherAPI, { FiveDayForecastResponse } from '../api/AccuWeatherAPI';
+import AccuWeatherAPI, {
+  FiveDayForecastResponse,
+} from '../../../../api/AccuWeatherAPI';
 import { FC } from 'react';
 import {
   Card,
@@ -7,7 +9,7 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppSelector } from '../../../../hooks/hooks';
 
 interface FiveDayForecastWidgetProps {
   forecast: FiveDayForecastResponse;

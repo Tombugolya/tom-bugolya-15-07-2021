@@ -1,6 +1,6 @@
-import AccuWeatherAPI, { CombinedData } from '../api/AccuWeatherAPI';
+import AccuWeatherAPI, { CombinedData } from '../../api/AccuWeatherAPI';
 import { FC } from 'react';
-import { WeatherActionCode } from '../store/reducers/weatherReducer';
+import { WeatherActionCode } from '../../store/reducers/weatherReducer';
 import {
   Card,
   CardActionArea,
@@ -8,7 +8,7 @@ import {
   Grid,
   Typography,
 } from '@material-ui/core';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { useHistory } from 'react-router-dom';
 
 interface FavoritesGridProps {

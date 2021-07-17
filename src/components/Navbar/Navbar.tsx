@@ -1,4 +1,4 @@
-import Links from './Links';
+import Links from '../Links';
 import { FC, memo } from 'react';
 import { Box, Typography } from '@material-ui/core';
 

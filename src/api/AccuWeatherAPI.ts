@@ -5,11 +5,11 @@ interface LatLon {
   longitude: number;
 }
 
-export enum Prefix {
-  AUTOCOMPLETE = 'locations/v1/cities/autocomplete',
-  CURRENT_CONDITIONS = 'currentconditions/v1',
-  FIVE_DAY_FORECAST = 'forecasts/v1/daily/5day',
-  GEOPOSITION = 'locations/v1/cities/geoposition/search',
+export enum EndPoint {
+  AUTOCOMPLETE = 'locations/v1/cities/autocomplete/',
+  CURRENT_CONDITIONS = 'currentconditions/v1/',
+  FIVE_DAY_FORECAST = 'forecasts/v1/daily/5day/',
+  GEOPOSITION = 'locations/v1/cities/geoposition/search/',
   GET_INFO_BY_KEY = 'locations/v1/',
 }
 
@@ -67,93 +67,95 @@ export type CombinedData = [
   FiveDayForecastResponse
 ];
 
+interface RequestParameters {
+  endPoint: EndPoint;
+  query?: Partial<{ q: string }>;
+  key?: string;
+}
+
 class AccuWeatherApi {
-  #url: string = 'https://dataservice.accuweather.com';
-  #apiKey: string = `${process.env.REACT_APP_WEATHER_API_KEY}`;
-  #assetsUrl: string =
-    'https://herolo-assets.s3.us-east-2.amazonaws.com/images';
-  #headers = {
+  readonly #url: string = 'https://dataservice.accuweather.com/';
+  readonly #apiKey: string = `${process.env.REACT_APP_WEATHER_API_KEY}`;
+  readonly #assetsUrl: string =
+    'https://herolo-assets.s3.us-east-2.amazonaws.com/images/';
+  readonly #headers = {
     method: 'GET',
   };
+  #latestError: string;
 
-  public async getAutocompleteSearch(
-    query: string
-  ): Promise<LocationInfoResponse[]> {
+  public async request<T>({
+    endPoint,
+    query = {},
+    key = '',
+  }: RequestParameters): Promise<T> {
     const queryParams = new URLSearchParams({
       apikey: this.#apiKey,
-      q: query,
+      ...query,
     }).toString();
     const response = fetch(
-      `${this.#url}/${Prefix.AUTOCOMPLETE}?${queryParams}`,
+      `${this.#url}${endPoint}${key}?${queryParams}`,
       this.#headers
     );
     const [error, data] = await to(response);
-    if (error) console.log(error);
-    return (await data?.json()) as Promise<LocationInfoResponse[]>;
+    if (error || !data.ok) {
+      this.#latestError = `Failed due to: ${error || data.statusText}`;
+      throw new Error(`Failed due to: ${error || data.statusText}`);
+    }
+    return (await data.json()) as Promise<T>;
+  }
+
+  public async getAutocompleteSearch(
+    q: string
+  ): Promise<LocationInfoResponse[]> {
+    return await this.request<LocationInfoResponse[]>({
+      endPoint: EndPoint.AUTOCOMPLETE,
+      query: { q },
+    });
   }
 
   public async getCurrentConditions(
     key: string
   ): Promise<CurrentConditionsResponse> {
-    const queryParams = new URLSearchParams({
-      apikey: this.#apiKey,
-    }).toString();
-    const response = fetch(
-      `${this.#url}/${Prefix.CURRENT_CONDITIONS}/${key}?${queryParams}`,
-      this.#headers
-    );
-    const [error, data] = await to(response);
-    if (error) console.log(error);
-    return (await data?.json())[0] as Promise<CurrentConditionsResponse>;
+    return await this.request<CurrentConditionsResponse>({
+      endPoint: EndPoint.CURRENT_CONDITIONS,
+      key,
+    });
   }
 
   public async getFiveDayForecast(
     key: string
   ): Promise<FiveDayForecastResponse> {
-    const queryParams = new URLSearchParams({
-      apikey: this.#apiKey,
-    }).toString();
-    const response = fetch(
-      `${this.#url}/${Prefix.FIVE_DAY_FORECAST}/${key}?${queryParams}`,
-      this.#headers
-    );
-    const [error, data] = await to(response);
-    if (error) console.log(error);
-    return (await data?.json()) as Promise<FiveDayForecastResponse>;
+    return await this.request<FiveDayForecastResponse>({
+      endPoint: EndPoint.FIVE_DAY_FORECAST,
+      key,
+    });
   }
 
   public async getGeopositionSearch({
     latitude,
     longitude,
   }: LatLon): Promise<GeopositionResponse> {
-    const queryParams = new URLSearchParams({
-      apikey: this.#apiKey,
-      q: `${latitude},${longitude}`,
-    }).toString();
-    const response = fetch(
-      `${this.#url}/${Prefix.GEOPOSITION}?${queryParams}`,
-      this.#headers
-    );
-    const [error, data] = await to(response);
-    if (error) console.log(error);
-    return (await data?.json()) as Promise<GeopositionResponse>;
+    return await this.request<GeopositionResponse>({
+      endPoint: EndPoint.GEOPOSITION,
+      query: {
+        q: `${latitude},${longitude}`,
+      },
+    });
   }
 
-  public async getLocationInfoByKey(key: string) {
-    const queryParams = new URLSearchParams({
-      apikey: this.#apiKey,
-    }).toString();
-    const response = fetch(
-      `${this.#url}/${Prefix.GET_INFO_BY_KEY}/${key}?${queryParams}`
-    );
-    const [error, data] = await to(response);
-    if (error) console.log(error);
-    return (await data?.json()) as Promise<LocationInfoResponse>;
+  public async getLocationInfoByKey(
+    key: string
+  ): Promise<LocationInfoResponse> {
+    return await this.request<LocationInfoResponse>({
+      endPoint: EndPoint.GET_INFO_BY_KEY,
+      key,
+    });
   }
 
-  public getImageUrl(id: number) {
-    return `${this.#assetsUrl}/${id}-s.png`;
+  public getImageUrl(id: number): string {
+    return `${this.#assetsUrl}${id}-s.png`;
   }
+
   public async getCombinedData(key: string): Promise<CombinedData> {
     return Promise.all([
       this.getCurrentConditions(key),
@@ -161,11 +163,17 @@ class AccuWeatherApi {
       this.getFiveDayForecast(key),
     ]);
   }
+
   public getCombinedDataCallback(
     key: string,
-    callback: (combinedData: CombinedData) => void
-  ) {
-    this.getCombinedData(key).then(callback);
+    callback: (combinedData: CombinedData) => void,
+    onError: (e: any) => void = console.log
+  ): void {
+    this.getCombinedData(key).then(callback).catch(onError);
+  }
+
+  public getLatestErrorMessage(): string {
+    return this.#latestError;
   }
 }
 

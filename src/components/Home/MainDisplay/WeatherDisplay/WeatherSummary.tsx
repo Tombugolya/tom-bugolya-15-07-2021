@@ -1,10 +1,10 @@
 import AccuWeatherAPI, {
   CurrentConditionsResponse,
   LocationInfoResponse,
-} from '../api/AccuWeatherAPI';
+} from '../../../../api/AccuWeatherAPI';
 import { FC } from 'react';
 import { Box, Typography } from '@material-ui/core';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppSelector } from '../../../../hooks/hooks';
 
 interface WeatherSummaryProps {
   conditions: CurrentConditionsResponse;

@@ -1,6 +1,7 @@
 import useAsyncEffect from 'use-async-effect';
 import AccuWeatherAPI, { CombinedData } from '../api/AccuWeatherAPI';
-import FavoritesGrid from '../components/FavoritesGrid';
+import FavoritesGrid from '../components/Favorites/FavoritesGrid';
+
 import { FC, useState } from 'react';
 import { useAppSelector } from '../hooks/hooks';
 import { Typography } from '@material-ui/core';

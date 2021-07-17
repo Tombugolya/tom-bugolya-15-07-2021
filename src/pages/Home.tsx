@@ -1,5 +1,6 @@
-import Search from '../components/Search';
-import MainDisplay from '../components/MainDisplay';
+import Search from '../components/Home/Search';
+import MainDisplay from '../components/Home/MainDisplay/MainDisplay';
+import ErrorDisplay from '../components/ErrorDisplay';
 import AccuWeatherAPI from '../api/AccuWeatherAPI';
 import useAsyncEffect from 'use-async-effect';
 import { FC, useState } from 'react';
@@ -12,6 +13,7 @@ import { useAppDispatch } from '../hooks/hooks';
 const Home: FC = () => {
   const dispatch = useAppDispatch();
   const [mount, setMount] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   useAsyncEffect(async () => {
     const key = await getCurrentPositionKey();
     AccuWeatherAPI.getCombinedDataCallback(
@@ -22,15 +24,16 @@ const Home: FC = () => {
           payload: { current: { info, conditions, fiveDayForecast } },
         });
         setMount(true);
-      }
+      },
+      () => setError(true)
     );
-    setMount(true);
   }, []);
 
   return (
     <>
       <Search />
       {mount && <MainDisplay />}
+      {error && <ErrorDisplay />}
     </>
   );
 };

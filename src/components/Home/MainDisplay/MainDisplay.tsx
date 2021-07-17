@@ -1,7 +1,7 @@
 import ResultsDisplay from './ResultsDisplay';
-import WeatherDisplay from './WeatherDisplay';
+import WeatherDisplay from './WeatherDisplay/WeatherDisplay';
 import { FC } from 'react';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppSelector } from '../../../hooks/hooks';
 import { Box } from '@material-ui/core';
 
 const MainDisplay: FC = () => {

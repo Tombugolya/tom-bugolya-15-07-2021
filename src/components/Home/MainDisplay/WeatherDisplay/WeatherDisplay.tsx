@@ -2,7 +2,7 @@ import WeatherSummary from './WeatherSummary';
 import AddToFavoritesWidget from './AddToFavoritesWidget';
 import FiveDayForecastWidget from './FiveDayForecastWidget';
 import { FC, memo } from 'react';
-import { useAppSelector } from '../hooks/hooks';
+import { useAppSelector } from '../../../../hooks/hooks';
 import { Box, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 
 const WeatherDisplay: FC = () => {

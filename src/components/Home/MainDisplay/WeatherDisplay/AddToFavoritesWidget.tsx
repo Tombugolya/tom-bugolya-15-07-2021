@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { HeartFill, Heart } from 'react-bootstrap-icons';
 import { Box, Button, withStyles } from '@material-ui/core';
-import { LocationInfoResponse } from '../api/AccuWeatherAPI';
-import { WeatherActionCode } from '../store/reducers/weatherReducer';
-import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { LocationInfoResponse } from '../../../../api/AccuWeatherAPI';
+import { WeatherActionCode } from '../../../../store/reducers/weatherReducer';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { red } from '@material-ui/core/colors';
 
 interface AddToFavoritesWidgetProps {
