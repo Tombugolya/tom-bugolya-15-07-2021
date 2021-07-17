@@ -4,12 +4,7 @@ import { Box } from '@material-ui/core';
 
 const Content: FC = () => {
   return (
-    <Box
-      minHeight="92vh"
-      display="flex"
-      alignItems="center"
-      flexDirection="column"
-    >
+    <Box display="flex" alignItems="center" flexDirection="column">
       <Routes />
     </Box>
   );

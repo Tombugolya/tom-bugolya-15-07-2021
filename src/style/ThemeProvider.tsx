@@ -8,15 +8,11 @@ function theme(darkMode: boolean) {
     palette: {
       type: darkMode ? 'dark' : 'light',
       primary: {
-        light: '#757ce8',
-        main: '#3f50b5',
-        dark: '#002884',
+        main: '#002884',
         contrastText: '#fff',
       },
       secondary: {
-        light: '#ff7961',
-        main: '#f44336',
-        dark: '#ba000d',
+        main: '#606CA8',
         contrastText: '#000',
       },
     },
@@ -28,7 +24,7 @@ const ThemeProvider: FC = ({ children }) => {
   return (
     <MuiThemeProvider theme={theme(darkThemeEnabled)}>
       <CssBaseline>
-        <Box maxWidth="100vw" color="primary.main" bgcolor="background.paper">
+        <Box maxWidth="100vw" minHeight="100vh" bgcolor="background.paper">
           {children}
         </Box>
       </CssBaseline>

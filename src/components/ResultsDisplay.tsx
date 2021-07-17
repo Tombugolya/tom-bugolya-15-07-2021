@@ -4,17 +4,19 @@ import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 import {
   Card,
-  CardActions,
-  Button,
   CardActionArea,
   CardContent,
   Grid,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@material-ui/core';
 
 const ResultsDisplay: FC = () => {
   const results = useAppSelector((state) => state.weather.searchResults);
   const dispatch = useAppDispatch();
+  const theme = useTheme();
+  const largeScreenBreakpoint = useMediaQuery(theme.breakpoints.up('lg'));
 
   const onCardSelected = (selected: LocationInfoResponse) => {
     const key = selected.Key;
@@ -31,28 +33,33 @@ const ResultsDisplay: FC = () => {
   };
 
   return (
-    <Grid container direction="row" justifyContent="center" spacing={10}>
+    <Grid container direction="row" justifyContent="center" spacing={5}>
       {results.map((info, index) => (
-        <Grid style={{ margin: '1em' }} item key={index} xs={12} lg={2}>
-          <Card>
-            <CardActionArea>
+        <Grid
+          style={{ margin: '1em', textAlign: 'center' }}
+          item
+          key={index}
+          xs={12}
+          lg={2}
+        >
+          <Card
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CardActionArea
+              style={{ minHeight: largeScreenBreakpoint ? '20vh' : '10vh' }}
+              onClick={() => onCardSelected(info)}
+            >
               <CardContent>
-                <Typography>{info.LocalizedName},</Typography>
                 <Typography>
-                  {info.AdministrativeArea.LocalizedName},
+                  {info.LocalizedName}, {info.AdministrativeArea.LocalizedName},{' '}
+                  {info.Country.LocalizedName}
                 </Typography>
-                <Typography>{info.Country.LocalizedName}</Typography>
               </CardContent>
             </CardActionArea>
-            <CardActions>
-              <Button
-                style={{ margin: '0 auto' }}
-                color="secondary"
-                onClick={() => onCardSelected(info)}
-              >
-                Choose
-              </Button>
-            </CardActions>
           </Card>
         </Grid>
       ))}

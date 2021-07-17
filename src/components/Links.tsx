@@ -1,7 +1,7 @@
 import Switches from './ThemeSwitch';
 import { Link as RouterLink } from 'react-router-dom';
 import { FC, memo } from 'react';
-import { Box, Link } from '@material-ui/core';
+import { Box, Hidden, Link } from '@material-ui/core';
 
 //TODO: make LINKS general file to combine in Routes and here
 const Links: FC = () => {
@@ -29,7 +29,9 @@ const Links: FC = () => {
       >
         Favorites
       </Link>
-      <Switches />
+      <Hidden smDown>
+        <Switches />
+      </Hidden>
     </Box>
   );
 };

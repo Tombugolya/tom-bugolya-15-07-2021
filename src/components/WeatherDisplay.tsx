@@ -3,17 +3,18 @@ import AddToFavoritesWidget from './AddToFavoritesWidget';
 import FiveDayForecastWidget from './FiveDayForecastWidget';
 import { FC, memo } from 'react';
 import { useAppSelector } from '../hooks/hooks';
-import { Box } from '@material-ui/core';
+import { Box, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 
 const WeatherDisplay: FC = () => {
   const current = useAppSelector((state) => state.weather.current);
   const { conditions, info, fiveDayForecast } = current;
+  const theme = useTheme();
+  const mediumScreenBreakpoint = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Box
-      height="100%"
       display="flex"
-      justifyContent="space-around"
+      justifyContent="space-between"
       flexDirection="column"
       alignItems="center"
     >
@@ -29,9 +30,13 @@ const WeatherDisplay: FC = () => {
             <AddToFavoritesWidget info={info} />
           </Box>
           <Box style={{ margin: '0 auto' }} color="secondary.main">
-            <h1 style={{ fontSize: '4em' }}>
+            <Typography
+              variant="h2"
+              color="textPrimary"
+              style={{ fontSize: mediumScreenBreakpoint ? '4em' : '3em' }}
+            >
               "{current.conditions.WeatherText}"
-            </h1>
+            </Typography>
           </Box>
           <FiveDayForecastWidget forecast={fiveDayForecast} />
         </>

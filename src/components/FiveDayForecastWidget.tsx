@@ -1,6 +1,12 @@
 import AccuWeatherAPI, { FiveDayForecastResponse } from '../api/AccuWeatherAPI';
 import { FC } from 'react';
-import { Card, CardActionArea, CardContent, Grid } from '@material-ui/core';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Typography,
+} from '@material-ui/core';
 import { useAppSelector } from '../hooks/hooks';
 
 interface FiveDayForecastWidgetProps {
@@ -40,7 +46,7 @@ const FiveDayForecastWidget: FC<FiveDayForecastWidgetProps> = ({
   };
 
   return (
-    <Grid direction="row" justifyContent="center" container spacing={5}>
+    <Grid direction="row" justifyContent="center" container>
       {forecast.DailyForecasts.map((forecast, index) => {
         const max = forecast.Temperature.Maximum;
         const min = forecast.Temperature.Minimum;
@@ -49,21 +55,23 @@ const FiveDayForecastWidget: FC<FiveDayForecastWidgetProps> = ({
             <Card>
               <CardActionArea>
                 <CardContent style={{ textAlign: 'center' }}>
-                  <h3>{getDayFromEpoch(forecast.EpochDate)}</h3>
+                  <Typography variant="h6">
+                    {getDayFromEpoch(forecast.EpochDate)}
+                  </Typography>
                   <div>
-                    <h4>Day</h4>
+                    <Typography>Day</Typography>
                     <img
                       src={AccuWeatherAPI.getImageUrl(forecast.Day.Icon)}
                       alt="day-weather-icon"
                     />
                   </div>
-                  <h4>Range {getTemperatureRange(min, max)}</h4>
+                  <Typography>Range {getTemperatureRange(min, max)}</Typography>
                   <div>
                     <img
                       src={AccuWeatherAPI.getImageUrl(forecast.Night.Icon)}
                       alt="night-weather-icon"
                     />
-                    <h4>Night</h4>
+                    <Typography>Night</Typography>
                   </div>
                 </CardContent>
               </CardActionArea>

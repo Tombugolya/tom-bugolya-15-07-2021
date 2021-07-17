@@ -25,7 +25,6 @@ const Search: FC = () => {
     <Box
       display="flex"
       width="40%"
-      height="5vh"
       margin="2em"
       justifyContent="space-around"
       alignItems="center"

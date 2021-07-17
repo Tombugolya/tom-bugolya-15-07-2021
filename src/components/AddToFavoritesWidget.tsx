@@ -1,13 +1,20 @@
 import { FC } from 'react';
 import { HeartFill, Heart } from 'react-bootstrap-icons';
-import { Box, Button } from '@material-ui/core';
+import { Box, Button, withStyles } from '@material-ui/core';
 import { LocationInfoResponse } from '../api/AccuWeatherAPI';
 import { WeatherActionCode } from '../store/reducers/weatherReducer';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
+import { red } from '@material-ui/core/colors';
 
 interface AddToFavoritesWidgetProps {
   info: LocationInfoResponse;
 }
+
+const ColorButton = withStyles(() => ({
+  root: {
+    color: red[500],
+  },
+}))(Button);
 
 const AddToFavoritesWidget: FC<AddToFavoritesWidgetProps> = ({ info }) => {
   const { Key } = info;
@@ -31,9 +38,9 @@ const AddToFavoritesWidget: FC<AddToFavoritesWidgetProps> = ({ info }) => {
       alignItems="center"
       justifyContent="space-around"
     >
-      <Button color="secondary" onClick={onAddToFavoritesClick}>
+      <ColorButton onClick={onAddToFavoritesClick}>
         {isFavorited ? <HeartFill size={50} /> : <Heart size={50} />}
-      </Button>
+      </ColorButton>
     </Box>
   );
 };

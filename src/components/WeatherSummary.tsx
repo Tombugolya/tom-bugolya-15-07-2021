@@ -3,7 +3,7 @@ import AccuWeatherAPI, {
   LocationInfoResponse,
 } from '../api/AccuWeatherAPI';
 import { FC } from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { useAppSelector } from '../hooks/hooks';
 
 interface WeatherSummaryProps {
@@ -17,7 +17,13 @@ const WeatherSummary: FC<WeatherSummaryProps> = ({ conditions, info }) => {
   const celsius = useAppSelector((state) => state.weather.celsius);
   const temperature = Temperature[celsius ? 'Metric' : 'Imperial'].Value;
   return (
-    <Box display="flex" width="30vw" alignItems="center" color="secondary.main">
+    <Box
+      display="flex"
+      width="30vw"
+      alignItems="center"
+      color="background.main"
+      style={{ margin: '2em' }}
+    >
       <div>
         <img
           src={AccuWeatherAPI.getImageUrl(WeatherIcon)}
@@ -25,10 +31,12 @@ const WeatherSummary: FC<WeatherSummaryProps> = ({ conditions, info }) => {
         />
       </div>
       <Box>
-        <h2>{LocalizedName}</h2>
-        <h2>
+        <Typography variant="h5" color="textPrimary">
+          {LocalizedName}
+        </Typography>
+        <Typography variant="h5" color="textPrimary">
           {temperature}° {celsius ? 'C' : 'F'}
-        </h2>
+        </Typography>
       </Box>
     </Box>
   );
