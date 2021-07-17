@@ -35,7 +35,7 @@ const WeatherDisplay: FC = () => {
               color="textPrimary"
               style={{ fontSize: mediumScreenBreakpoint ? '4em' : '3em' }}
             >
-              "{current.conditions.WeatherText}"
+              {current.conditions.WeatherText}
             </Typography>
           </Box>
           <FiveDayForecastWidget forecast={fiveDayForecast} />
