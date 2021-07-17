@@ -1,4 +1,4 @@
-import ThemeSwitch from './ThemeSwitch';
+import Switches from './ThemeSwitch';
 import { Link as RouterLink } from 'react-router-dom';
 import { FC, memo } from 'react';
 import { Box, Link } from '@material-ui/core';
@@ -19,7 +19,7 @@ const Links: FC = () => {
       <Link color="textPrimary" component={RouterLink} to="/favorites">
         Favorites
       </Link>
-      <ThemeSwitch />
+      <Switches />
     </Box>
   );
 };
