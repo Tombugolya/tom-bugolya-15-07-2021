@@ -33,7 +33,7 @@ const AddToFavoritesWidget: FC<AddToFavoritesWidgetProps> = ({ info }) => {
 
   return (
     <Box
-      color="secondary.main"
+      color="primary.main"
       display="flex"
       alignItems="center"
       justifyContent="space-around"

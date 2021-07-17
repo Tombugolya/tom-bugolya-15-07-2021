@@ -15,7 +15,6 @@ const WeatherSummary: FC<WeatherSummaryProps> = ({ conditions, info }) => {
   const { WeatherIcon, Temperature } = conditions;
   const { LocalizedName } = info;
   const celsius = useAppSelector((state) => state.weather.celsius);
-  console.log('conditions: ', conditions);
   const temperature = Temperature[celsius ? 'Metric' : 'Imperial'].Value;
   return (
     <Box

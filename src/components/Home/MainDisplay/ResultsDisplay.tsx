@@ -25,17 +25,17 @@ const ResultsDisplay: FC = () => {
     AccuWeatherAPI.getCombinedDataCallback(
       key,
       ([conditions, info, fiveDayForecast]) => {
+        dispatch({ type: WeatherActionCode.RETURN });
         dispatch({
           type: WeatherActionCode.CHANGE_CURRENT,
           payload: { current: { conditions, info, fiveDayForecast } },
         });
-        dispatch({ type: WeatherActionCode.RETURN });
       }
     );
   };
 
   return (
-    <Grid container direction="row" justifyContent="center" spacing={5}>
+    <Grid container direction="row" justifyContent="center" alignItems="center">
       {results.map((info, index) => (
         <Grid
           style={{ margin: '1em', textAlign: 'center' }}

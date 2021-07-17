@@ -11,7 +11,7 @@ const Links: FC = () => {
       alignItems="center"
       width="30vw"
       justifyContent="flex-end"
-      color="secondary.main"
+      color="primary.main"
     >
       {Object.values(routes).map((route, index) => (
         <Link

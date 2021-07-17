@@ -8,12 +8,8 @@ function theme(darkMode: boolean) {
     palette: {
       type: darkMode ? 'dark' : 'light',
       primary: {
-        main: '#002884',
-        contrastText: '#fff',
-      },
-      secondary: {
         main: '#606CA8',
-        contrastText: '#000',
+        contrastText: '#fff',
       },
     },
   });

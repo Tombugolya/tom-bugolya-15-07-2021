@@ -8,7 +8,7 @@ const Navbar: FC = () => {
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      bgcolor="secondary.main"
+      bgcolor="primary.main"
     >
       <Typography
         variant="h5"

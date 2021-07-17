@@ -1,4 +1,5 @@
 import rootReducer from './reducers/rootReducer';
+import _throttle from 'lodash/throttle';
 import { createStore } from 'redux';
 import { FC } from 'react';
 import { Provider } from 'react-redux';
@@ -11,10 +12,12 @@ const store = createStore(
   (window as any)['__REDUX_DEVTOOLS_EXTENSION__'] &&
     (window as any)['__REDUX_DEVTOOLS_EXTENSION__']()
 );
-store.subscribe(() => {
-  saveState(store.getState());
-  localStorage.setItem('reduxState', JSON.stringify(store.getState()));
-});
+store.subscribe(
+  _throttle(() => {
+    saveState(store.getState());
+    localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+  }, 1000)
+);
 
 const StoreProvider: FC = ({ children }) => {
   return <Provider store={store}>{children}</Provider>;

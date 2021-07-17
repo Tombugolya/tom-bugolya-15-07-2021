@@ -1,8 +1,10 @@
 import AccuWeatherAPI, { CombinedData } from '../../api/AccuWeatherAPI';
+import routes from '../../routes/routes';
 import { FC } from 'react';
 import { WeatherActionCode } from '../../store/reducers/weatherReducer';
 import {
   Card,
+  Box,
   CardActionArea,
   CardContent,
   Grid,
@@ -26,45 +28,53 @@ const FavoritesGrid: FC<FavoritesGridProps> = ({ combinedDataArray }) => {
       type: WeatherActionCode.CHANGE_CURRENT,
       payload: { current: { conditions, info, fiveDayForecast } },
     });
-    history.push('/');
+    history.push(routes.home.to);
   };
 
   return (
-    <Grid
-      style={{ width: '90%' }}
-      direction="row"
+    <Box
+      display="flex"
       justifyContent="center"
-      container
+      width="100%"
+      minHeight="72vh"
+      bgcolor="background.default"
     >
-      {combinedDataArray.map((combinedData, index) => {
-        const [conditions, info] = combinedData;
-        const temperature = celsius
-          ? conditions.Temperature.Metric.Value
-          : conditions.Temperature.Imperial.Value;
-        const unit = celsius ? 'C' : 'F';
-        return (
-          <Grid style={{ margin: '2em', minWidth: '20em' }} item key={index}>
-            <Card>
-              <CardActionArea onClick={() => onCardClick(combinedData)}>
-                <CardContent style={{ textAlign: 'center' }}>
-                  <Typography>{info.LocalizedName}</Typography>
-                  <Typography>
-                    {temperature}° {unit}
-                  </Typography>
-                  <div>
-                    <img
-                      src={AccuWeatherAPI.getImageUrl(conditions.WeatherIcon)}
-                      alt={`favorites-weather-icon-${index}`}
-                    />
-                  </div>
-                  <Typography>{conditions.WeatherText}</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        );
-      })}
-    </Grid>
+      <Grid
+        style={{ width: '90%' }}
+        direction="row"
+        justifyContent="center"
+        container
+      >
+        {combinedDataArray.map((combinedData, index) => {
+          const [conditions, info] = combinedData;
+          const temperature = celsius
+            ? conditions.Temperature.Metric.Value
+            : conditions.Temperature.Imperial.Value;
+          const unit = celsius ? 'C' : 'F';
+          return (
+            <Grid style={{ margin: '2em', minWidth: '20em' }} item key={index}>
+              <Card>
+                <CardActionArea onClick={() => onCardClick(combinedData)}>
+                  <CardContent style={{ textAlign: 'center' }}>
+                    <Typography>{info.LocalizedName}</Typography>
+                    <Typography>
+                      {temperature}° {unit}
+                    </Typography>
+                    <div>
+                      <img
+                        src={AccuWeatherAPI.getImageUrl(conditions.WeatherIcon)}
+                        alt={`favorites-weather-icon-${index}`}
+                      />
+                    </div>
+                    <Typography>{conditions.WeatherText}</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
+    </Box>
   );
 };
 

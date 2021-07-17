@@ -1,5 +1,5 @@
 import AccuWeatherAPI from '../../api/AccuWeatherAPI';
-import { FC, useRef } from 'react';
+import { FC, KeyboardEvent, useRef } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import { useAppDispatch } from '../../hooks/hooks';
 import { WeatherActionCode } from '../../store/reducers/weatherReducer';
@@ -20,6 +20,9 @@ const Search: FC = () => {
         }
       );
   };
+  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.code === 'Enter') onSearch();
+  };
 
   return (
     <Box
@@ -29,7 +32,12 @@ const Search: FC = () => {
       justifyContent="space-around"
       alignItems="center"
     >
-      <TextField fullWidth type="search" inputRef={textFieldRef} />
+      <TextField
+        fullWidth
+        type="search"
+        inputRef={textFieldRef}
+        onKeyPress={onKeyPress}
+      />
       <Button onClick={onSearch}>Search</Button>
     </Box>
   );

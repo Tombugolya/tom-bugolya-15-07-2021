@@ -29,7 +29,7 @@ const WeatherDisplay: FC = () => {
             <WeatherSummary conditions={conditions} info={info} />
             <AddToFavoritesWidget info={info} />
           </Box>
-          <Box style={{ margin: '0 auto' }} color="secondary.main">
+          <Box style={{ margin: '0 auto' }} color="primary.main">
             <Typography
               variant="h2"
               color="textPrimary"
