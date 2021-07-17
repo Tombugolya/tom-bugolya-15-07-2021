@@ -61,7 +61,7 @@ interface GeopositionResponse {
   Key: string;
 }
 
-type CombinedData = [
+export type CombinedData = [
   CurrentConditionsResponse,
   LocationInfoResponse,
   FiveDayForecastResponse
@@ -154,16 +154,18 @@ class AccuWeatherApi {
   public getImageUrl(id: number) {
     return `${this.#assetsUrl}/${id}-s.png`;
   }
-
+  public async getCombinedData(key: string): Promise<CombinedData> {
+    return Promise.all([
+      this.getCurrentConditions(key),
+      this.getLocationInfoByKey(key),
+      this.getFiveDayForecast(key),
+    ]);
+  }
   public getCombinedDataCallback(
     key: string,
     callback: (combinedData: CombinedData) => void
   ) {
-    Promise.all([
-      this.getCurrentConditions(key),
-      this.getLocationInfoByKey(key),
-      this.getFiveDayForecast(key),
-    ]).then(callback);
+    this.getCombinedData(key).then(callback);
   }
 }
 

@@ -1,6 +1,6 @@
 import AccuWeatherAPI, { FiveDayForecastResponse } from '../api/AccuWeatherAPI';
 import { FC } from 'react';
-import { Card, CardContent, Grid } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, Grid } from '@material-ui/core';
 import { useAppSelector } from '../hooks/hooks';
 
 interface FiveDayForecastWidgetProps {
@@ -45,26 +45,28 @@ const FiveDayForecastWidget: FC<FiveDayForecastWidgetProps> = ({
         const max = forecast.Temperature.Maximum;
         const min = forecast.Temperature.Minimum;
         return (
-          <Grid item key={index}>
+          <Grid style={{ margin: '2em', minWidth: '20em' }} item key={index}>
             <Card>
-              <CardContent style={{ textAlign: 'center' }}>
-                <h3>{getDayFromEpoch(forecast.EpochDate)}</h3>
-                <div>
-                  <h4>Day</h4>
-                  <img
-                    src={AccuWeatherAPI.getImageUrl(forecast.Day.Icon)}
-                    alt="day-weather-icon"
-                  />
-                </div>
-                <h4>Range {getTemperatureRange(min, max)}</h4>
-                <div>
-                  <img
-                    src={AccuWeatherAPI.getImageUrl(forecast.Night.Icon)}
-                    alt="night-weather-icon"
-                  />
-                  <h4>Night</h4>
-                </div>
-              </CardContent>
+              <CardActionArea>
+                <CardContent style={{ textAlign: 'center' }}>
+                  <h3>{getDayFromEpoch(forecast.EpochDate)}</h3>
+                  <div>
+                    <h4>Day</h4>
+                    <img
+                      src={AccuWeatherAPI.getImageUrl(forecast.Day.Icon)}
+                      alt="day-weather-icon"
+                    />
+                  </div>
+                  <h4>Range {getTemperatureRange(min, max)}</h4>
+                  <div>
+                    <img
+                      src={AccuWeatherAPI.getImageUrl(forecast.Night.Icon)}
+                      alt="night-weather-icon"
+                    />
+                    <h4>Night</h4>
+                  </div>
+                </CardContent>
+              </CardActionArea>
             </Card>
           </Grid>
         );

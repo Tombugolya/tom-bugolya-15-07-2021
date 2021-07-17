@@ -8,7 +8,7 @@ const MainDisplay: FC = () => {
   const results = useAppSelector((state) => state.weather.searchResults);
 
   return (
-    <Box height="75vh" width="80vw" bgcolor="primary.main">
+    <Box width="90%" minHeight="78vh" bgcolor="primary.main">
       {results.length ? <ResultsDisplay /> : <WeatherDisplay />}
     </Box>
   );

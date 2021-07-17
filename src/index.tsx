@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import StoreProvider from './store/StoreProvider';
 import ThemeProvider from './style/ThemeProvider';
-import Routes from './pages/Routes';
+import Main from './pages/Main';
 import { FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ const App: FC = () => {
     <StoreProvider>
       <ThemeProvider>
         <Router>
-          <Routes />
+          <Main />
         </Router>
       </ThemeProvider>
     </StoreProvider>

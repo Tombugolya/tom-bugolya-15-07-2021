@@ -19,13 +19,18 @@ const WeatherDisplay: FC = () => {
     >
       {current && (
         <>
-          <Box display="flex" justifyContent="space-around" alignItems="center">
+          <Box
+            display="flex"
+            width="80%"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <WeatherSummary conditions={conditions} info={info} />
             <AddToFavoritesWidget info={info} />
           </Box>
           <Box style={{ margin: '0 auto' }} color="secondary.main">
             <h1 style={{ fontSize: '4em' }}>
-              {current.conditions.WeatherText}
+              "{current.conditions.WeatherText}"
             </h1>
           </Box>
           <FiveDayForecastWidget forecast={fiveDayForecast} />

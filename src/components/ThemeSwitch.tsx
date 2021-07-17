@@ -10,14 +10,20 @@ const ThemeSwitch = () => {
   const celsius = useAppSelector((state) => state.weather.celsius);
 
   return (
-    <div>
-      <Button onClick={() => dispatch({ type: ThemeActionCode.TOGGLE })}>
+    <>
+      <Button
+        style={{ margin: '1em' }}
+        onClick={() => dispatch({ type: ThemeActionCode.TOGGLE })}
+      >
         {darkThemeEnabled ? <SunFill size={15} /> : <MoonFill size={15} />}
       </Button>
-      <Button onClick={() => dispatch({ type: WeatherActionCode.TOGGLE })}>
+      <Button
+        style={{ margin: '1em' }}
+        onClick={() => dispatch({ type: WeatherActionCode.TOGGLE })}
+      >
         {celsius ? 'F' : 'C'}
       </Button>
-    </div>
+    </>
   );
 };
 

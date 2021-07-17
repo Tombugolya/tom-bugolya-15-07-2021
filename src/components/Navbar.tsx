@@ -7,8 +7,7 @@ const Navbar: FC = () => {
     <Box
       display="flex"
       justifyContent="space-between"
-      width="100vw"
-      height="10vh"
+      height="8vh"
       bgcolor="secondary.main"
     >
       <h1 style={{ marginLeft: '2em' }}>LOGO</h1>

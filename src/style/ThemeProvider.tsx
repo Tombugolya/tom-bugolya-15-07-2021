@@ -28,12 +28,7 @@ const ThemeProvider: FC = ({ children }) => {
   return (
     <MuiThemeProvider theme={theme(darkThemeEnabled)}>
       <CssBaseline>
-        <Box
-          width="100vw"
-          height="100vh"
-          color="primary.main"
-          bgcolor="background.paper"
-        >
+        <Box maxWidth="100vw" color="primary.main" bgcolor="background.paper">
           {children}
         </Box>
       </CssBaseline>

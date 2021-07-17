@@ -8,15 +8,25 @@ const Links: FC = () => {
   return (
     <Box
       display="flex"
-      justifyContent="space-around"
       alignItems="center"
-      width="20vw"
+      width="30vw"
+      justifyContent="flex-end"
       color="secondary.main"
     >
-      <Link color="textPrimary" component={RouterLink} to="/">
+      <Link
+        style={{ margin: '1em', minWidth: '4em' }}
+        color="textPrimary"
+        component={RouterLink}
+        to="/"
+      >
         Home
       </Link>
-      <Link color="textPrimary" component={RouterLink} to="/favorites">
+      <Link
+        style={{ margin: '1em', minWidth: '4em' }}
+        color="textPrimary"
+        component={RouterLink}
+        to="/favorites"
+      >
         Favorites
       </Link>
       <Switches />

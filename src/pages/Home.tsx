@@ -3,7 +3,6 @@ import MainDisplay from '../components/MainDisplay';
 import AccuWeatherAPI from '../api/AccuWeatherAPI';
 import useAsyncEffect from 'use-async-effect';
 import { FC, useState } from 'react';
-import { Box } from '@material-ui/core';
 import {
   getCurrentPositionKey,
   WeatherActionCode,
@@ -29,16 +28,10 @@ const Home: FC = () => {
   }, []);
 
   return (
-    <Box
-      display="flex"
-      height="90vh"
-      alignItems="center"
-      justifyContent="space-around"
-      flexDirection="column"
-    >
+    <>
       <Search />
       {mount && <MainDisplay />}
-    </Box>
+    </>
   );
 };
 

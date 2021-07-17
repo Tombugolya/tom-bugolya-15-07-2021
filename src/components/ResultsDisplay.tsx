@@ -29,34 +29,33 @@ const ResultsDisplay: FC = () => {
       }
     );
   };
+
   return (
     <Grid container direction="row" justifyContent="center" spacing={10}>
-      {results.map((info, index) => {
-        return (
-          <Grid style={{ margin: '1em' }} item key={index} xs={12} lg={2}>
-            <Card>
-              <CardActionArea>
-                <CardContent>
-                  <Typography>{info.LocalizedName},</Typography>
-                  <Typography>
-                    {info.AdministrativeArea.LocalizedName},
-                  </Typography>
-                  <Typography>{info.Country.LocalizedName}</Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button
-                  style={{ margin: '0 auto' }}
-                  color="secondary"
-                  onClick={() => onCardSelected(info)}
-                >
-                  Choose
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        );
-      })}
+      {results.map((info, index) => (
+        <Grid style={{ margin: '1em' }} item key={index} xs={12} lg={2}>
+          <Card>
+            <CardActionArea>
+              <CardContent>
+                <Typography>{info.LocalizedName},</Typography>
+                <Typography>
+                  {info.AdministrativeArea.LocalizedName},
+                </Typography>
+                <Typography>{info.Country.LocalizedName}</Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+              <Button
+                style={{ margin: '0 auto' }}
+                color="secondary"
+                onClick={() => onCardSelected(info)}
+              >
+                Choose
+              </Button>
+            </CardActions>
+          </Card>
+        </Grid>
+      ))}
     </Grid>
   );
 };

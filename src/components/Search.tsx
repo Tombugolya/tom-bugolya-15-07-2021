@@ -22,17 +22,17 @@ const Search: FC = () => {
   };
 
   return (
-    <>
-      <Box display="flex" width="60vh" justifyContent="space-around">
-        <TextField
-          fullWidth
-          type="search"
-          label="Search"
-          inputRef={textFieldRef}
-        />
-        <Button onClick={onSearch}>Search</Button>
-      </Box>
-    </>
+    <Box
+      display="flex"
+      width="40%"
+      height="5vh"
+      margin="2em"
+      justifyContent="space-around"
+      alignItems="center"
+    >
+      <TextField fullWidth type="search" inputRef={textFieldRef} />
+      <Button onClick={onSearch}>Search</Button>
+    </Box>
   );
 };
 
