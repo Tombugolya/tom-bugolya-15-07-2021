@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/tom-bugolya-15-07-2021/static/js/main.ec2e8084.chunk.js",
-    "main.js.map": "/tom-bugolya-15-07-2021/static/js/main.ec2e8084.chunk.js.map",
+    "main.js": "/tom-bugolya-15-07-2021/static/js/main.c2d6a471.chunk.js",
+    "main.js.map": "/tom-bugolya-15-07-2021/static/js/main.c2d6a471.chunk.js.map",
     "runtime-main.js": "/tom-bugolya-15-07-2021/static/js/runtime-main.6f47fb92.js",
     "runtime-main.js.map": "/tom-bugolya-15-07-2021/static/js/runtime-main.6f47fb92.js.map",
     "static/js/2.ce422905.chunk.js": "/tom-bugolya-15-07-2021/static/js/2.ce422905.chunk.js",
@@ -12,6 +12,6 @@
   "entrypoints": [
     "static/js/runtime-main.6f47fb92.js",
     "static/js/2.ce422905.chunk.js",
-    "static/js/main.ec2e8084.chunk.js"
+    "static/js/main.c2d6a471.chunk.js"
   ]
 }
