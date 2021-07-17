@@ -1,8 +1,19 @@
 import Links from '../Links';
+import routes from '../../routes/routes';
 import { FC, memo } from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core';
 
 const Navbar: FC = () => {
+  const theme = useTheme();
+  const mediumScreenBreakpoint = useMediaQuery(theme.breakpoints.up('md'));
+
   return (
     <Box
       display="flex"
@@ -10,12 +21,20 @@ const Navbar: FC = () => {
       alignItems="center"
       bgcolor="primary.main"
     >
-      <Typography
-        variant="h5"
-        style={{ marginLeft: '2em', fontStyle: 'italic' }}
+      <Button
+        style={{ marginLeft: mediumScreenBreakpoint ? '2em' : '0.5em' }}
+        component={RouterLink}
+        to={routes.home.to}
       >
-        Weather App
-      </Typography>
+        <Typography
+          variant="h5"
+          style={{
+            fontStyle: 'italic',
+          }}
+        >
+          Weather App
+        </Typography>
+      </Button>
       <Links />
     </Box>
   );

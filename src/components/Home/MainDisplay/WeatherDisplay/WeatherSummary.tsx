@@ -19,10 +19,9 @@ const WeatherSummary: FC<WeatherSummaryProps> = ({ conditions, info }) => {
   return (
     <Box
       display="flex"
-      width="30vw"
       alignItems="center"
       color="background.main"
-      style={{ margin: '2em' }}
+      style={{ marginTop: '2em', marginBottom: '2em' }}
     >
       <div>
         <img

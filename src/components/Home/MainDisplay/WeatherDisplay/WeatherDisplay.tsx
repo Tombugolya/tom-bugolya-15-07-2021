@@ -22,7 +22,7 @@ const WeatherDisplay: FC = () => {
         <>
           <Box
             display="flex"
-            width="80%"
+            width={mediumScreenBreakpoint ? '80%' : '95%'}
             justifyContent="space-between"
             alignItems="center"
           >
