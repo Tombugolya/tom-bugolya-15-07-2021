@@ -1,5 +1,6 @@
 import WeatherSummary from './WeatherSummary';
 import AddToFavoritesWidget from './AddToFavoritesWidget';
+import FiveDayForecastWidget from './FiveDayForecastWidget';
 import { FC, memo } from 'react';
 import { useAppSelector } from '../hooks/hooks';
 import { Box } from '@material-ui/core';
@@ -27,12 +28,7 @@ const WeatherDisplay: FC = () => {
               {current.conditions.WeatherText}
             </h1>
           </Box>
-          <div style={{ color: 'white' }}>
-            {current.conditions.WeatherText} {current.conditions.WeatherIcon}{' '}
-            {current.info.LocalizedName}
-            {current.info.AdministrativeArea.LocalizedName}
-            {current.info.Country.LocalizedName}
-          </div>
+          <FiveDayForecastWidget forecast={fiveDayForecast} />
         </>
       )}
     </Box>
