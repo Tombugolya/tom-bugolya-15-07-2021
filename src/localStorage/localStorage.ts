@@ -13,6 +13,6 @@ export const saveState = (state: any) => {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);
   } catch (e) {
-    console.log(e);
+    throw new Error(`Couldn't save to local storage, due to: ${e}`);
   }
 };

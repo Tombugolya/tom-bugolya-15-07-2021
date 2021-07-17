@@ -5,11 +5,11 @@ import { WeatherActionCode } from '../../../store/reducers/weatherReducer';
 import { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import {
-  Card,
   CardActionArea,
   CardContent,
   Grid,
   Typography,
+  Card,
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';

@@ -97,9 +97,6 @@ class AccuWeatherApi {
       this.#headers
     );
     const [error, data] = await to(response);
-    console.log(endPoint);
-    console.log('Error: ', error);
-    console.log('Data: ', data);
     if (error || !data.ok) {
       this.#latestError = `Failed due to: ${error || data.statusText}`;
       throw new Error(`Failed due to: ${error || data.statusText}`);
@@ -174,12 +171,7 @@ class AccuWeatherApi {
     callback: (combinedData: CombinedData) => void,
     onError: (e: any) => void = console.log
   ): void {
-    this.getCombinedData(key)
-      .then(callback)
-      .catch((e) => {
-        console.log('Error return on catch: ', e);
-        onError(e);
-      });
+    this.getCombinedData(key).then(callback).catch(onError);
   }
 
   public getLatestErrorMessage(): string {

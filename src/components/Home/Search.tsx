@@ -1,8 +1,8 @@
 import AccuWeatherAPI from '../../api/AccuWeatherAPI';
+import { WeatherActionCode } from '../../store/reducers/weatherReducer';
 import { FC, KeyboardEvent, useRef } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import { useAppDispatch } from '../../hooks/hooks';
-import { WeatherActionCode } from '../../store/reducers/weatherReducer';
 
 const Search: FC = () => {
   const textFieldRef = useRef<HTMLInputElement>();
