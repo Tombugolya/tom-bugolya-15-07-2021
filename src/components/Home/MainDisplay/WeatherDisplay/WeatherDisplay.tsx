@@ -2,14 +2,16 @@ import WeatherSummary from './WeatherSummary';
 import AddToFavoritesWidget from './AddToFavoritesWidget';
 import FiveDayForecastWidget from './FiveDayForecastWidget';
 import { FC, memo } from 'react';
-import { useAppSelector } from '../../../../hooks/hooks';
-import { Box, Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import {
+  useAppSelector,
+  useMediaQueryBreakpoint,
+} from '../../../../hooks/hooks';
+import { Box, Typography } from '@material-ui/core';
 
 const WeatherDisplay: FC = () => {
   const current = useAppSelector((state) => state.weather.current);
   const { conditions, info, fiveDayForecast } = current;
-  const theme = useTheme();
-  const mediumScreenBreakpoint = useMediaQuery(theme.breakpoints.up('md'));
+  const mediumScreenBreakpoint = useMediaQueryBreakpoint('md');
 
   return (
     <Box

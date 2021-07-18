@@ -2,15 +2,14 @@ import useAsyncEffect from 'use-async-effect';
 import AccuWeatherAPI, { CombinedData } from '../api/AccuWeatherAPI';
 import FavoritesGrid from '../components/Favorites/FavoritesGrid';
 import { FC, useState } from 'react';
-import { useAppSelector } from '../hooks/hooks';
-import { Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import { useAppSelector, useMediaQueryBreakpoint } from '../hooks/hooks';
+import { Typography } from '@material-ui/core';
 
 const Favorites: FC = () => {
   const favorites = useAppSelector((state) => state.weather.favorites);
   const [combinedData, setCombinedData] = useState<CombinedData[]>([]);
   const [mount, setMount] = useState<boolean>(false);
-  const theme = useTheme();
-  const mediumScreenBreakpoint = useMediaQuery(theme.breakpoints.up('md'));
+  const mediumScreenBreakpoint = useMediaQueryBreakpoint('md');
 
   useAsyncEffect(async () => {
     const combinedDataArray = await Promise.all(

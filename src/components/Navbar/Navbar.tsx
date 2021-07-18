@@ -1,18 +1,12 @@
 import Links from '../Links';
 import routes from '../../routes/routes';
+import { Box, Button, Typography } from '@material-ui/core';
 import { FC, memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import {
-  Box,
-  Button,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@material-ui/core';
+import { useMediaQueryBreakpoint } from '../../hooks/hooks';
 
 const Navbar: FC = () => {
-  const theme = useTheme();
-  const mediumScreenBreakpoint = useMediaQuery(theme.breakpoints.up('md'));
+  const mediumScreenBreakpoint = useMediaQueryBreakpoint('md');
 
   return (
     <Box
@@ -30,6 +24,7 @@ const Navbar: FC = () => {
           variant="h5"
           style={{
             fontStyle: 'italic',
+            fontSize: mediumScreenBreakpoint ? '1.5em' : '1em',
           }}
         >
           Weather App

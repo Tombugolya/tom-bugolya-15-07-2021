@@ -3,22 +3,23 @@ import AccuWeatherAPI, {
 } from '../../../api/AccuWeatherAPI';
 import { WeatherActionCode } from '../../../store/reducers/weatherReducer';
 import { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import {
+  useAppSelector,
+  useAppDispatch,
+  useMediaQueryBreakpoint,
+} from '../../../hooks/hooks';
 import {
   CardActionArea,
   CardContent,
   Grid,
   Typography,
   Card,
-  useMediaQuery,
-  useTheme,
 } from '@material-ui/core';
 
 const ResultsDisplay: FC = () => {
   const results = useAppSelector((state) => state.weather.searchResults);
   const dispatch = useAppDispatch();
-  const theme = useTheme();
-  const largeScreenBreakpoint = useMediaQuery(theme.breakpoints.up('lg'));
+  const largeScreenBreakpoint = useMediaQueryBreakpoint('lg');
 
   const onCardSelected = (selected: LocationInfoResponse) => {
     const key = selected.Key;

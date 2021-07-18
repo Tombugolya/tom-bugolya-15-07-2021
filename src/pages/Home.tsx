@@ -8,13 +8,18 @@ import {
   getCurrentPositionKey,
   WeatherActionCode,
 } from '../store/reducers/weatherReducer';
-import { useAppDispatch } from '../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
+  const current = useAppSelector((state) => state.weather.current);
   const [mount, setMount] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   useAsyncEffect(async () => {
+    if (current) {
+      setMount(true);
+      return;
+    }
     const key = await getCurrentPositionKey();
     AccuWeatherAPI.getCombinedDataCallback(
       key,

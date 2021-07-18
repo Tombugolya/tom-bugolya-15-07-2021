@@ -5,7 +5,6 @@ import AccuWeatherAPI, {
 } from '../../api/AccuWeatherAPI';
 import { AnyAction, Reducer } from 'redux';
 import to from 'await-to-js';
-import TestObject from '../../apiTest';
 
 interface WeatherState {
   celsius: boolean;
@@ -43,7 +42,7 @@ interface WeatherAction extends AnyAction {
 const initialState: WeatherState = {
   celsius: true,
   favorites: [],
-  current: TestObject,
+  current: null,
   searchResults: [],
 };
 
