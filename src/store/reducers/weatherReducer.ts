@@ -26,16 +26,18 @@ export enum WeatherActionCode {
   RETURN = 'RETURN_TO_MAIN_DISPLAY',
 }
 
+interface CombinedInformation {
+  conditions: CurrentConditionsResponse;
+  info: LocationInfoResponse;
+  fiveDayForecast: FiveDayForecastResponse;
+}
+
 interface WeatherAction extends AnyAction {
   type: WeatherActionCode;
   payload?: {
     key?: string;
     results?: LocationInfoResponse[];
-    current?: {
-      conditions: CurrentConditionsResponse;
-      info: LocationInfoResponse;
-      fiveDayForecast: FiveDayForecastResponse;
-    };
+    current?: CombinedInformation;
   };
 }
 
@@ -71,6 +73,46 @@ export async function getCurrentPositionKey(): Promise<string> {
   }
   return defaultKey;
 }
+
+export const toggleTemperatureUnit = (): WeatherAction => {
+  return {
+    type: WeatherActionCode.TOGGLE,
+  };
+};
+
+export const addFavorite = (key: string): WeatherAction => {
+  return {
+    type: WeatherActionCode.ADD_FAVORITE,
+    payload: { key },
+  };
+};
+
+export const removeFavorite = (key: string): WeatherAction => {
+  return {
+    type: WeatherActionCode.REMOVE_FAVORITE,
+    payload: { key },
+  };
+};
+
+export const changeCurrent = (current: CombinedInformation): WeatherAction => {
+  return {
+    type: WeatherActionCode.CHANGE_CURRENT,
+    payload: { current },
+  };
+};
+
+export const addResults = (results: LocationInfoResponse[]): WeatherAction => {
+  return {
+    type: WeatherActionCode.ADD_RESULTS,
+    payload: { results },
+  };
+};
+
+export const returnToMainDisplay = (): WeatherAction => {
+  return {
+    type: WeatherActionCode.RETURN,
+  };
+};
 
 const weather: Reducer<WeatherState, WeatherAction> = (
   state: WeatherState = initialState,

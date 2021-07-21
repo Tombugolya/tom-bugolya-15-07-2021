@@ -1,7 +1,10 @@
 import AccuWeatherAPI, {
   LocationInfoResponse,
 } from '../../../api/AccuWeatherAPI';
-import { WeatherActionCode } from '../../../store/reducers/weatherReducer';
+import {
+  changeCurrent,
+  returnToMainDisplay,
+} from '../../../store/reducers/weatherReducer';
 import { FC } from 'react';
 import {
   useAppSelector,
@@ -26,11 +29,8 @@ const ResultsDisplay: FC = () => {
     AccuWeatherAPI.getCombinedDataCallback(
       key,
       ([conditions, info, fiveDayForecast]) => {
-        dispatch({ type: WeatherActionCode.RETURN });
-        dispatch({
-          type: WeatherActionCode.CHANGE_CURRENT,
-          payload: { current: { conditions, info, fiveDayForecast } },
-        });
+        dispatch(returnToMainDisplay());
+        dispatch(changeCurrent({ conditions, info, fiveDayForecast }));
       }
     );
   };

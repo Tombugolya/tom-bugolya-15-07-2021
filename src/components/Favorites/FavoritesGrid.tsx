@@ -1,7 +1,7 @@
 import AccuWeatherAPI, { CombinedData } from '../../api/AccuWeatherAPI';
 import routes from '../../routes/routes';
 import { FC } from 'react';
-import { WeatherActionCode } from '../../store/reducers/weatherReducer';
+import { changeCurrent } from '../../store/reducers/weatherReducer';
 import {
   Card,
   Box,
@@ -24,10 +24,7 @@ const FavoritesGrid: FC<FavoritesGridProps> = ({ combinedDataArray }) => {
 
   const onCardClick = (combinedData: CombinedData) => {
     const [conditions, info, fiveDayForecast] = combinedData;
-    dispatch({
-      type: WeatherActionCode.CHANGE_CURRENT,
-      payload: { current: { conditions, info, fiveDayForecast } },
-    });
+    dispatch(changeCurrent({ conditions, info, fiveDayForecast }));
     history.push(routes.home.to);
   };
 

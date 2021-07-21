@@ -2,7 +2,10 @@ import { FC } from 'react';
 import { HeartFill, Heart } from 'react-bootstrap-icons';
 import { Box, Button, withStyles } from '@material-ui/core';
 import { LocationInfoResponse } from '../../../../api/AccuWeatherAPI';
-import { WeatherActionCode } from '../../../../store/reducers/weatherReducer';
+import {
+  addFavorite,
+  removeFavorite,
+} from '../../../../store/reducers/weatherReducer';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { red } from '@material-ui/core/colors';
 
@@ -23,12 +26,7 @@ const AddToFavoritesWidget: FC<AddToFavoritesWidgetProps> = ({ info }) => {
   const isFavorited = favorites.includes(Key);
 
   const onAddToFavoritesClick = () => {
-    dispatch({
-      type: isFavorited
-        ? WeatherActionCode.REMOVE_FAVORITE
-        : WeatherActionCode.ADD_FAVORITE,
-      payload: { key: Key },
-    });
+    dispatch(isFavorited ? removeFavorite(Key) : addFavorite(Key));
   };
 
   return (

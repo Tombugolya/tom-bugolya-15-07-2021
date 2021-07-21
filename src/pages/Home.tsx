@@ -5,8 +5,8 @@ import AccuWeatherAPI from '../api/AccuWeatherAPI';
 import useAsyncEffect from 'use-async-effect';
 import { FC, useState } from 'react';
 import {
+  changeCurrent,
   getCurrentPositionKey,
-  WeatherActionCode,
 } from '../store/reducers/weatherReducer';
 import { useAppDispatch, useAppSelector } from '../hooks/hooks';
 
@@ -24,10 +24,7 @@ const Home: FC = () => {
     AccuWeatherAPI.getCombinedDataCallback(
       key,
       ([conditions, info, fiveDayForecast]) => {
-        dispatch({
-          type: WeatherActionCode.CHANGE_CURRENT,
-          payload: { current: { info, conditions, fiveDayForecast } },
-        });
+        dispatch(changeCurrent({ info, conditions, fiveDayForecast }));
         setMount(true);
       },
       () => setError(true)

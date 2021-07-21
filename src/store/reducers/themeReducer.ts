@@ -22,6 +22,12 @@ function isBrowserDarkMode(): boolean {
   return false;
 }
 
+export const toggleTheme = () => {
+  return {
+    type: ThemeActionCode.TOGGLE,
+  };
+};
+
 const theme: Reducer<ThemeState, ThemeAction> = (
   state: ThemeState = initialState,
   action: ThemeAction

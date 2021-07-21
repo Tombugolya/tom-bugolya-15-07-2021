@@ -1,5 +1,8 @@
 import AccuWeatherAPI from '../../api/AccuWeatherAPI';
-import { WeatherActionCode } from '../../store/reducers/weatherReducer';
+import {
+  addResults,
+  returnToMainDisplay,
+} from '../../store/reducers/weatherReducer';
 import { FC, KeyboardEvent, useRef } from 'react';
 import { Box, Button, TextField } from '@material-ui/core';
 import { useAppDispatch, useMediaQueryBreakpoint } from '../../hooks/hooks';
@@ -10,16 +13,10 @@ const Search: FC = () => {
   const mediumScreenBreakpoint = useMediaQueryBreakpoint('md');
 
   const onSearch = () => {
-    if (textFieldRef.current.value === '')
-      dispatch({ type: WeatherActionCode.RETURN });
+    if (textFieldRef.current.value === '') dispatch(returnToMainDisplay());
     else
       AccuWeatherAPI.getAutocompleteSearch(textFieldRef.current.value).then(
-        (values) => {
-          dispatch({
-            type: WeatherActionCode.ADD_RESULTS,
-            payload: { results: values },
-          });
-        }
+        (values) => dispatch(addResults(values))
       );
   };
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
