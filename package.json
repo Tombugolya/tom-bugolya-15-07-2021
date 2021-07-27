@@ -41,7 +41,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://tombugolya.github.io/tom-bugolya-15-07-2021",
+  "homepage": "https://tombugolya.github.io/weather-app",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
