@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.js": "/tom-bugolya-15-07-2021/static/js/main.d1f7cdd6.chunk.js",
-    "main.js.map": "/tom-bugolya-15-07-2021/static/js/main.d1f7cdd6.chunk.js.map",
-    "runtime-main.js": "/tom-bugolya-15-07-2021/static/js/runtime-main.6f47fb92.js",
-    "runtime-main.js.map": "/tom-bugolya-15-07-2021/static/js/runtime-main.6f47fb92.js.map",
-    "static/js/2.7713801b.chunk.js": "/tom-bugolya-15-07-2021/static/js/2.7713801b.chunk.js",
-    "static/js/2.7713801b.chunk.js.map": "/tom-bugolya-15-07-2021/static/js/2.7713801b.chunk.js.map",
-    "index.html": "/tom-bugolya-15-07-2021/index.html",
-    "static/js/2.7713801b.chunk.js.LICENSE.txt": "/tom-bugolya-15-07-2021/static/js/2.7713801b.chunk.js.LICENSE.txt"
+    "main.js": "/weather-app/static/js/main.1de23c93.chunk.js",
+    "main.js.map": "/weather-app/static/js/main.1de23c93.chunk.js.map",
+    "runtime-main.js": "/weather-app/static/js/runtime-main.09327f5f.js",
+    "runtime-main.js.map": "/weather-app/static/js/runtime-main.09327f5f.js.map",
+    "static/js/2.7713801b.chunk.js": "/weather-app/static/js/2.7713801b.chunk.js",
+    "static/js/2.7713801b.chunk.js.map": "/weather-app/static/js/2.7713801b.chunk.js.map",
+    "index.html": "/weather-app/index.html",
+    "static/js/2.7713801b.chunk.js.LICENSE.txt": "/weather-app/static/js/2.7713801b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.6f47fb92.js",
+    "static/js/runtime-main.09327f5f.js",
     "static/js/2.7713801b.chunk.js",
-    "static/js/main.d1f7cdd6.chunk.js"
+    "static/js/main.1de23c93.chunk.js"
   ]
 }
